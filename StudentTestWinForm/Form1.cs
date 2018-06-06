@@ -48,10 +48,7 @@ namespace StudentTestWinForm
    
         private void Form1_Load(object sender, EventArgs e)
         {
-            using ( var Context = new StudentContext())
-            {
-                students = Context.Students.ToList();
-            }
+            students = Context.Students.ToList();
             gridStudent.DataSource = students;
         }
 
@@ -142,23 +139,22 @@ namespace StudentTestWinForm
             {
                 student = new Student();
                 students.Add(student);
-                Context.Students.Add(student);
-                Context.SaveChanges();
+                Context.Students.Add(student);                
                 student.Id = students.Count;
             }
             else
             {
                 student = editStudent;
-                var std = Context.Students.First(x => x.Id == editStudent.Id);
+                var std = Context.Students.Find(editStudent.Id);
                 std = editStudent;
-                Context.SaveChanges();
+                Context.Entry(std).State = EntityState.Modified;
             }
 
             student.Name = txtName.Text;
             student.Dob = DateTime.Parse(txtDob.Text);
             student.Score = int.Parse(txtScore.Text);
 
-            //Context.SaveChanges();
+            Context.SaveChanges();
             gridStudent.DataSource = new List<Student>(students);
             editStudent = null;
 
