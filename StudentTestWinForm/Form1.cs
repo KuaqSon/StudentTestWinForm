@@ -5,6 +5,8 @@ using System.Linq;
 using System.Xml.Linq;
 using System.Windows.Forms;
 using System.IO;
+using System.Data.Entity;
+using System.Runtime.Remoting.Contexts;
 
 namespace StudentTestWinForm
 {
@@ -19,12 +21,12 @@ namespace StudentTestWinForm
             bttBrowser.Click += BttBrowser_Click;
             gridStudent.CellClick += GridStudent_CellClick;
             txtId.Enabled = false;
+   
     }
-
- 
 
         List<Student> students = new List<Student>();
         Student editStudent = null;
+        StudentContext Context = new StudentContext();
 
         private void GridStudent_CellClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -43,11 +45,13 @@ namespace StudentTestWinForm
             txtScore.Text = editStudent.Score.ToString();
 
         }
-
-        
-
+   
         private void Form1_Load(object sender, EventArgs e)
         {
+            using ( var Context = new StudentContext())
+            {
+                students = Context.Students.ToList();
+            }
             gridStudent.DataSource = students;
         }
 
@@ -138,17 +142,23 @@ namespace StudentTestWinForm
             {
                 student = new Student();
                 students.Add(student);
-                student.Id = students.Count;               
+                Context.Students.Add(student);
+                Context.SaveChanges();
+                student.Id = students.Count;
             }
             else
             {
                 student = editStudent;
+                var std = Context.Students.First(x => x.Id == editStudent.Id);
+                std = editStudent;
+                Context.SaveChanges();
             }
 
             student.Name = txtName.Text;
             student.Dob = DateTime.Parse(txtDob.Text);
             student.Score = int.Parse(txtScore.Text);
 
+            //Context.SaveChanges();
             gridStudent.DataSource = new List<Student>(students);
             editStudent = null;
 
