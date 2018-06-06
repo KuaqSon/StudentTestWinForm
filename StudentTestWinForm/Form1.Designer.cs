@@ -41,6 +41,7 @@
             this.txtDob = new System.Windows.Forms.DateTimePicker();
             this.txtScore = new System.Windows.Forms.NumericUpDown();
             this.bttBrowser = new System.Windows.Forms.Button();
+            this.bttDelete = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.gridStudent)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtScore)).BeginInit();
             this.SuspendLayout();
@@ -160,11 +161,21 @@
             this.bttBrowser.Text = "Browser...";
             this.bttBrowser.UseVisualStyleBackColor = true;
             // 
+            // bttDelete
+            // 
+            this.bttDelete.Location = new System.Drawing.Point(265, 300);
+            this.bttDelete.Name = "bttDelete";
+            this.bttDelete.Size = new System.Drawing.Size(95, 23);
+            this.bttDelete.TabIndex = 15;
+            this.bttDelete.Text = "Delete";
+            this.bttDelete.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(852, 344);
+            this.Controls.Add(this.bttDelete);
             this.Controls.Add(this.bttBrowser);
             this.Controls.Add(this.txtScore);
             this.Controls.Add(this.txtDob);
@@ -203,6 +214,7 @@
         private System.Windows.Forms.DateTimePicker txtDob;
         private System.Windows.Forms.NumericUpDown txtScore;
         private System.Windows.Forms.Button bttBrowser;
+        private System.Windows.Forms.Button bttDelete;
     }
 }
 

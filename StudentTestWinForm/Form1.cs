@@ -19,6 +19,7 @@ namespace StudentTestWinForm
             bttSave.Click += BttSave_Click;
             bttExport.Click += BttExport_Click;
             bttBrowser.Click += BttBrowser_Click;
+            bttDelete.Click += BttDelete_Click;
             gridStudent.CellClick += GridStudent_CellClick;
             txtId.Enabled = false;
    
@@ -157,6 +158,24 @@ namespace StudentTestWinForm
             Context.SaveChanges();
             gridStudent.DataSource = new List<Student>(students);
             editStudent = null;
+
+            Clear();
+        }
+
+        private void BttDelete_Click(object sender, EventArgs e)
+        {
+            if (editStudent == null)
+            {
+                MessageBox.Show("Please choose data to delete!");
+                return;
+            }
+
+            students.Remove(editStudent);
+            gridStudent.DataSource = new List<Student>(students);
+
+            var std = Context.Students.Find(editStudent.Id);
+            Context.Students.Remove(std);
+            Context.SaveChanges();
 
             Clear();
         }
